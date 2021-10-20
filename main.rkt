@@ -46,6 +46,19 @@
                         (decimal->binary (quotient decimal 2))) 
                       "1")))
 
+;;; Recursive binary to decimal translation
+;;; This function accepts a binary number as a string and will convert it to
+;;; decimal.
+(define binary->decimal
+  (lambda (binary) (let ((len (string-length binary))
+                         (dgt (substring binary 0 1)))
+                     (if (zero? len)
+                       (string->number (substring binary 0 1))
+                       (if (string=? dgt "1")
+                         (+ (expt 2 (sub1 len))
+                            (binary->decimal (substring binary 1)))
+                         0)))))
+
 ;;; This is an helper function that takes a string as input an will output it
 ;;; reversed.
 (define string-reverse
@@ -60,3 +73,9 @@
 
 (printf "3: converting the decimal number ~a to binary: ~s~%"
         "157" (string-reverse (decimal->binary 157)))
+
+(printf "4: converting the binary number ~a to decimal: ~s~%"
+        inet-ip (binary->decimal inet-ip))
+
+(printf "5: converting the decimal number ~a to binary ~s~%"
+        "192" (string-reverse (decimal->binary 192)))
