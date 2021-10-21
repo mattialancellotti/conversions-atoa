@@ -1,5 +1,7 @@
 #lang racket
 
+(require "notations.rkt")
+
 (define inet-ip "11000000")
 (define rand-b  "10110111")
 
@@ -11,32 +13,6 @@
 
 (define one?
   (lambda (number) (= number 1)))
-
-;;; This function will just swap the first bit of the given binary string as the
-;;; signed notation says.
-(define signed-notation
-  (lambda (binary) (let ([len (string-length binary)])
-                     ;; This will take the first bit and change it to the
-                     ;; opposite to make a negative/positive number.
-                     (string-append
-                       (opposite (substring binary 0 1))
-                       (substring binary 1)))))
-
-;;; Recursive 1's complement 
-;;; This function will recursively iterate through the given string of digits
-;;; until it gets to a single digit to then return the opposite.
-(define complement-one
-  (lambda (binary) (if (one? (string-length binary))
-                     ;; If the passed binary number is composed by just one
-                     ;; digit there is no need to do further operation other
-                     ;; than switching this single digit.
-                     (opposite binary)
-
-                     ;;; Otherwise get the first available digit, switch it and
-                     ;;; append it to the remaining digits. (recursively)
-                     (string-append 
-                       (opposite (substring binary 0 1))
-                       (complement-one (substring binary 1))))))
 
 ;;; Recursive decimal to binary translation
 ;;; This function will recursively translate any positive decimal number to its
@@ -58,7 +34,6 @@
   (lambda (binary) (let ([len (string-length binary)]
                          [dgt (substring binary 0 1)])
                      (cond
-                       [(zero? len) (string->number (substring binary 0 1))]
                        [(string=? dgt "1")
                          (+ (expt 2 (sub1 len))
                             (binary->decimal (substring binary 1)))]
