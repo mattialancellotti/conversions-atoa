@@ -1,15 +1,8 @@
 ;;; Declaring the 'notations' module
 (module notations racket
+  (require "bits.rkt")
   (provide signed-notation complement-one)
 
-  (define one?
-    (lambda (number) (eq? number 1)))
-
-  ;;; 0 <-> 1
-  (define opposite
-    (lambda (digit) (cond
-                      [(string=? digit "1") "0"]
-                      [else "1"])))
 
   ;;; This function will just swap the first bit of the given binary string as the
   ;;; signed notation says.
