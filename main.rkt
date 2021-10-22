@@ -19,10 +19,13 @@
         rand-b (signed-notation rand-b))
 
 (printf "3: converting the decimal number ~a to binary: ~s~%"
-        "157" (string-reverse (decimal->binary 157)))
+        "157" (decimal->binary 157))
 
 (printf "4: converting the binary number ~a to decimal: ~s~%"
         inet-ip (binary->decimal inet-ip))
 
-(printf "5: converting the decimal number ~a to binary ~s~%"
-        192 (string-reverse (decimal->binary 192)))
+(printf "5: converting the decimal number ~a to binary: ~s~%"
+        192 (decimal->binary 192))
+
+(printf "6: converting the decimal number ~a to binary: ~s~%"
+        174 (base10->baseN 47 2))
