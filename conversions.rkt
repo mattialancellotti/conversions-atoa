@@ -18,6 +18,10 @@
                            (number->string (remainder decimal 2)))]
                         [else "1"])))
 
+  ;;; Recursive decimal to N base transaltion
+  ;;; This funciton takes a decimal number and the base to translate that number
+  ;;; to. Will return a list of ordered character composing the new
+  ;;; rapresentation.
   (define base10->baseN
     (lambda (number base) (cond
                             [(zero? number) empty]
