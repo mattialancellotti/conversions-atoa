@@ -1,5 +1,6 @@
 #lang racket
 
+(require "bits.rkt")
 (require "notations.rkt")
 (require "conversions.rkt")
 
@@ -28,4 +29,6 @@
         192 (decimal->binary 192))
 
 (printf "6: converting the decimal number ~a to binary: ~s~%"
-        174 (base10->baseN 30 16))
+        174 (base10->baseN 37 2))
+
+(padding (base10->baseN 3 2))

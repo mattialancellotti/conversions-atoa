@@ -8,6 +8,7 @@
   ;;; Recursive decimal to binary translation
   ;;; This function will recursively translate any positive decimal number to its
   ;;; binary counterpart.
+  ;(: decimal->binary (-> (Natural) (String)))
   (define decimal->binary
     (lambda (decimal) (cond
                         [(> decimal 1)
@@ -22,6 +23,7 @@
   ;;; This funciton takes a decimal number and the base to translate that number
   ;;; to. Will return a list of ordered character composing the new
   ;;; rapresentation.
+  ;(: base10->baseN (-> (Natural) (Natural) (Listof Natural)))
   (define base10->baseN
     (lambda (number base) (cond
                             [(zero? number) empty]
