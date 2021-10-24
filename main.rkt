@@ -29,6 +29,6 @@
         192 (decimal->binary 192))
 
 (printf "6: converting the decimal number ~a to binary: ~s~%"
-        174 (base10->baseN 37 2))
+        174 (base10->baseN 50 4))
 
-(padding (base10->baseN 3 2))
+(build-number (padding (base10->baseN 10 16)))
