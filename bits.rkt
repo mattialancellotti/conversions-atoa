@@ -1,9 +1,5 @@
 (module bits racket
-  (provide one? opposite padding build-number)
-
-  ;;; This function checks if the given number is 1 or not
-  (define one?
-    (lambda (number) (eq? number 1)))
+  (provide opposite padding build-number)
 
   ;;; Checks if the given number 'z' is between is between 'x' and 'y'
   (define between?
@@ -12,8 +8,8 @@
   ;;; 0 <-> 1
   (define opposite
     (lambda (digit) (cond
-                      [(string=? digit "1") "0"]
-                      [else "1"])))
+                      [(zero? digit) 1]
+                      [else 0])))
 
   ;;; This function will add padding before the given number based on the power
   ;;; of 2. For example if the list has 3 elements the added padding will be
@@ -38,5 +34,6 @@
                       (map (lambda (x)
                              (cond
                                [(between? x  0  9) (integer->char (+ x 48))]
-                               [(between? x 10 15) (integer->char (+ x 55))]))
+                               [(between? x 10 15) (integer->char (+ x 55))]
+                               [else x]))
                            nlist)))))

@@ -7,25 +7,13 @@
   ;;; This function will just swap the first bit of the given binary string as the
   ;;; signed notation says.
   (define signed-notation
-    (lambda (binary) (let ([len (string-length binary)])
-                       ;; This will take the first bit and change it to the
-                       ;; opposite to make a negative/positive number.
-                       (string-append
-                         (opposite (substring binary 0 1))
-                         (substring binary 1)))))
+    (lambda (binary) (unless (empty? binary)
+                       (append
+                         (list (opposite (first binary)))
+                         (list-tail binary 1)))))
 
   ;;; Recursive 1's complement 
-  ;;; This function will recursively iterate through the given string of digits
-  ;;; until it gets to a single digit to then return the opposite.
+  ;;; This function will recursively iterate through the given list of digits
+  ;;; and maps the oppsoite function to each element.
   (define complement-one
-    (lambda (binary) (if (one? (string-length binary))
-                       ;; If the passed binary number is composed by just one
-                       ;; digit there is no need to do further operation other
-                       ;; than switching this single digit.
-                       (opposite binary)
-
-                       ;;; Otherwise get the first available digit, switch it and
-                       ;;; append it to the remaining digits. (recursively)
-                       (string-append 
-                         (opposite (substring binary 0 1))
-                         (complement-one (substring binary 1)))))))
+    (lambda (binary) (map (lambda (x) (opposite x)) binary))))
