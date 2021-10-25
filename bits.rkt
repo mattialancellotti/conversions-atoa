@@ -49,17 +49,21 @@
                       ;; Executing the function on every element of the list
                       (map (lambda (x)
                              (cond
+                               ;; Each element is compared against this
+                               ;; constraints. This piece of code converts an
+                               ;; integer into a character.
                                [(between? x  0  9) (integer->char (+ x 48))]
                                [(between? x 10 15) (integer->char (+ x 55))]
                                [else x]))
                            nlist))))
 
+  ;;; This funciton is the opposite of build-number
   (define demolish-number
-    (lambda (str)
-                      ;; Executing the function on every element of the list
-                      (map (lambda (x)
-                             (cond
-                               [(char-between? x #\0 #\9) (- (char->integer x) 48)]
-                               [(char-between? x #\A #\F) (- (char->integer x) 55)]
-                               [else x]))
-                           (string->list str)))))
+    (lambda (str) (map (lambda (x)
+                         (cond
+                           ;; Basically each element is converted to its integer
+                           ;; counter-part.
+                           [(char-between? x #\0 #\9) (- (char->integer x) 48)]
+                           [(char-between? x #\A #\F) (- (char->integer x) 55)]
+                           [else x]))
+                       (string->list str)))))

@@ -17,7 +17,10 @@
 (printf "6: converting the decimal number ~a to binary: ~s~%"
         174 (base10->baseN 50 4))
 
-(build-number (padding (base10->baseN 10 16)))
+(build-number (padding (base10->baseN 307 16)))
+(demolish-number
+  (build-number (padding (base10->baseN 307 16))))
+
 (signed-notation (padding (base10->baseN 5 2)))
 
 (padding (base10->baseN 5 2) 9)
