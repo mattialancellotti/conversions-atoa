@@ -1,9 +1,13 @@
 (module bits racket
-  (provide opposite padding build-number)
+  (provide opposite padding build-number demolish-number)
 
   ;;; Checks if the given number 'z' is between is between 'x' and 'y'
   (define between?
     (lambda (z x y) (if (and (>= z x) (<= z y)) #t #f)))
+
+  ;;; Temporal solution
+  (define char-between?
+    (lambda (z x y) (if (and (char>=? z x) (char<=? z y)) #t #f)))
 
   ;;; 0 <-> 1
   (define opposite
@@ -48,4 +52,14 @@
                                [(between? x  0  9) (integer->char (+ x 48))]
                                [(between? x 10 15) (integer->char (+ x 55))]
                                [else x]))
-                           nlist)))))
+                           nlist))))
+
+  (define demolish-number
+    (lambda (str)
+                      ;; Executing the function on every element of the list
+                      (map (lambda (x)
+                             (cond
+                               [(char-between? x #\0 #\9) (- (char->integer x) 48)]
+                               [(char-between? x #\A #\F) (- (char->integer x) 55)]
+                               [else x]))
+                           (string->list str)))))
