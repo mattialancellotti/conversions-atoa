@@ -15,16 +15,28 @@
   ;;; of 2. For example if the list has 3 elements the added padding will be
   ;;; only 1.
   (define padding
-    (lambda (bits) (let* ([len (length bits)]
-                          [pow (exact-ceiling (log len 2))]
-                          [pad (- (expt 2 pow) len)])
-                     (cond
-                       ;; If the calculated padding is not zero this will append
-                       ;; a list of 0s before the given list.
-                       [(not (zero? pad))
-                        (append
-                          (build-list pad (lambda (x) 0)) bits)]
-                       [else bits]))))
+    (lambda (bits [add 0])
+      ;; Calculating the length of the list
+      (let ([len (length bits)])
+        ;; If the `add` argument was provided, it should be always greater than
+        ;; the length of the list. In this case the function will just add the
+        ;; remaining bits to the list without calculating powers and other
+        ;; stuff.
+        (cond
+          [(> add len) (append
+                         (build-list (- add len) (lambda (x) 0)) bits)]
+          [else
+            ;; If the `add` parameter was not provided move on with the
+            ;; automatic calculation.
+            (let* ([pow (exact-ceiling (log len 2))]
+                   [pad (- (expt 2 pow) len)])
+              (cond
+                ;; If the calculated padding is not zero this will append
+                ;; a list of 0s before the given list.
+                [(not (zero? pad))
+                 (append
+                   (build-list pad (lambda (x) 0)) bits)]
+                [else bits]))]))))
 
   ;;; This function will convert every number in the list to the right char
   ;;; according the standard. For example A => 10..

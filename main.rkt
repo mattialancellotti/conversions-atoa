@@ -19,3 +19,6 @@
 
 (build-number (padding (base10->baseN 10 16)))
 (signed-notation (padding (base10->baseN 5 2)))
+
+(padding (base10->baseN 5 2) 9)
+(padding (base10->baseN 5 2) 10)
