@@ -11,6 +11,9 @@
   (define base10->baseN
     (lambda (number base) (cond
                             [(zero? number) empty]
+                            [(negative? number)
+                             (signed-notation
+                               (padding (base10->baseN (abs number) base)))]
                             [else
                               (append
                                 (base10->baseN (quotient number base) base)
