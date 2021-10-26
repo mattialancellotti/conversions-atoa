@@ -23,5 +23,6 @@
 
 (signed-notation (padding (base10->baseN 5 2)))
 
-(padding (base10->baseN 5 2) 9)
-(padding (base10->baseN 5 2) 10)
+(padding (base10->baseN  5 2) 9)
+(base10->baseN -5 2)
+(complement-two rand-b)
