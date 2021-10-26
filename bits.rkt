@@ -39,7 +39,7 @@
                 ;; a list of 0s before the given list.
                 [(not (zero? pad))
                  (append
-                   (make-list pad 0) bits)]
+                   (build-list pad (lambda (x) 0)) bits)]
                 [else bits]))]))))
 
   ;;; This function will convert every number in the list to the right char
