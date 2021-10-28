@@ -42,15 +42,22 @@
                                   (baseN->base10
                                     (take-right number (sub1 len)) base))]))))
 
+  ;;; This function is a wrapper procedure that enables the user to call just
+  ;;; one function to convert a number.
   (define convert
     (lambda (number sbase ebase) (cond
                                    [(zero? number) 0]
+                                   ;; If the start base isn't 10 than the number
+                                   ;; should be converted to the base 10 before
+                                   ;; converting it to ebase
                                    [(not (eq? sbase 10))
                                     (let* ([s10 (number->string number)]
                                            [nbase (demolish-number s10)]
                                            [n10 (baseN->base10 nbase sbase)])
                                       (build-number
                                         (base10->baseN n10 ebase)))]
+                                   ;; If the given number is in base 10 than
+                                   ;; it's all a lot simpler.
                                    [else
                                      (build-number
                                        (base10->baseN number ebase))]))))
