@@ -27,3 +27,5 @@
 
 (define number (base10->baseN 28 16))
 (baseN->base10 number 16)
+
+(convert 10 10 16)
