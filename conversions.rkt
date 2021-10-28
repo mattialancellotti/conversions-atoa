@@ -2,7 +2,7 @@
   (require racket/list)
   (require "notations.rkt" "bits.rkt")
 
-  (provide base10->baseN baseN->base10)
+  (provide base10->baseN baseN->base10 convert)
 
   ;;; Recursive decimal to N base translation
   ;;; This funciton takes a decimal number and the base to translate that number
@@ -40,4 +40,17 @@
                                 (+
                                   (* (first number) (expt base (sub1 len)))
                                   (baseN->base10
-                                    (take-right number (sub1 len)) base))])))))
+                                    (take-right number (sub1 len)) base))]))))
+
+  (define convert
+    (lambda (number sbase ebase) (cond
+                                   [(zero? number) 0]
+                                   [(not (eq? sbase 10))
+                                    (let* ([s10 (number->string number)]
+                                           [nbase (demolish-number s10)]
+                                           [n10 (baseN->base10 nbase sbase)])
+                                      (build-number
+                                        (base10->baseN n10 ebase)))]
+                                   [else
+                                     (build-number
+                                       (base10->baseN number ebase))]))))
