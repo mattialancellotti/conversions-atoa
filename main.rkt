@@ -1,8 +1,6 @@
 #lang racket/base
 
-(require "bits.rkt")
-(require "notations.rkt")
-(require "conversions.rkt")
+(require "bits.rkt" "notations.rkt" "conversions.rkt")
 
 (define inet-ip '(1 1 0 0 0 0 0 0))
 (define rand-b  '(1 0 1 1 0 1 1 1))
