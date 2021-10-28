@@ -1,4 +1,5 @@
-(module conversions racket
+(module conversions racket/base
+  (require racket/list)
   (require "notations.rkt")
   (require "bits.rkt")
 

@@ -1,4 +1,5 @@
-(module bits racket
+(module bits racket/base
+  (require racket/math racket/list)
   (provide opposite padding build-number demolish-number)
 
   ;;; Checks if the given number 'z' is between is between 'x' and 'y'
