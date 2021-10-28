@@ -26,3 +26,6 @@
 (padding (base10->baseN  5 2) 9)
 (base10->baseN -5 2)
 (complement-two rand-b)
+
+(define number (base10->baseN 28 16))
+(baseN->base10 number 16)
