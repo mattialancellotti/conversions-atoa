@@ -12,9 +12,10 @@
 
   ;;; 0 <-> 1
   (define opposite
-    (lambda (digit) (cond
-                      [(zero? digit) 1]
-                      [else 0])))
+    (lambda (digit)
+      (cond
+        [(zero? digit) 1]
+        [else 0])))
 
   ;;; This function will add padding before the given number based on the power
   ;;; of 2. For example if the list has 3 elements the added padding will be
@@ -28,8 +29,9 @@
         ;; remaining bits to the list without calculating powers and other
         ;; stuff.
         (cond
-          [(> add len) (append
-                         (build-list (- add len) (lambda (x) 0)) bits)]
+          [(> add len)
+           (append
+             (build-list (- add len) (lambda (x) 0)) bits)]
           [else
             ;; If the `add` parameter was not provided move on with the
             ;; automatic calculation.
@@ -46,25 +48,27 @@
   ;;; This function will convert every number in the list to the right char
   ;;; according the standard. For example A => 10..
   (define build-number
-    (lambda (nlist) (list->string
-                      ;; Executing the function on every element of the list
-                      (map (lambda (x)
-                             (cond
-                               ;; Each element is compared against this
-                               ;; constraints. This piece of code converts an
-                               ;; integer into a character.
-                               [(between? x  0  9) (integer->char (+ x 48))]
-                               [(between? x 10 15) (integer->char (+ x 55))]
-                               [else x]))
-                           nlist))))
+    (lambda (nlist)
+      (list->string
+        ;; Executing the function on every element of the list
+        (map (lambda (x)
+               (cond
+                 ;; Each element is compared against this
+                 ;; constraints. This piece of code converts an
+                 ;; integer into a character.
+                 [(between? x  0  9) (integer->char (+ x 48))]
+                 [(between? x 10 15) (integer->char (+ x 55))]
+                 [else x]))
+             nlist))))
 
   ;;; This funciton is the opposite of build-number
   (define demolish-number
-    (lambda (str) (map (lambda (x)
-                         (cond
-                           ;; Basically each element is converted to its integer
-                           ;; counter-part.
-                           [(char-between? x #\0 #\9) (- (char->integer x) 48)]
-                           [(char-between? x #\A #\F) (- (char->integer x) 55)]
-                           [else x]))
-                       (string->list str)))))
+    (lambda (str)
+      (map (lambda (x)
+             (cond
+               ;; Basically each element is converted to its integer
+               ;; counter-part.
+               [(char-between? x #\0 #\9) (- (char->integer x) 48)]
+               [(char-between? x #\A #\F) (- (char->integer x) 55)]
+               [else x]))
+           (string->list str)))))

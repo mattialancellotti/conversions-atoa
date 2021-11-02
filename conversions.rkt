@@ -9,55 +9,58 @@
   ;;; to. Will return a list of ordered character composing the new
   ;;; rapresentation.
   (define base10->baseN
-    (lambda (number base) (cond
-                            [(zero? number) empty]
-                            ;; If the number is negative this function will use
-                            ;; the signed-notation procedure from notations.rkt
-                            ;; to rapresent the `negative` binary number.
-                            [(negative? number)
-                             (signed-notation
-                               (padding (base10->baseN (abs number) base)))]
-                            ;; This piece of code will recursively divide the
-                            ;; given number until it gets to 0. After all the
-                            ;; created functions have returned the result of the
-                            ;; first instance will be a list of numbers, each of
-                            ;; them a digit of that same number rapresented
-                            ;; using a different base.
-                            [else
-                              (append
-                                (base10->baseN (quotient number base) base)
-                                (list (remainder number base)))])))
+    (lambda (number base)
+      (cond
+        [(zero? number) empty]
+        ;; If the number is negative this function will use
+        ;; the signed-notation procedure from notations.rkt
+        ;; to rapresent the `negative` binary number.
+        [(negative? number)
+         (signed-notation
+           (padding (base10->baseN (abs number) base)))]
+        ;; This piece of code will recursively divide the
+        ;; given number until it gets to 0. After all the
+        ;; created functions have returned the result of the
+        ;; first instance will be a list of numbers, each of
+        ;; them a digit of that same number rapresented
+        ;; using a different base.
+        [else
+          (append
+            (base10->baseN (quotient number base) base)
+            (list (remainder number base)))])))
 
   ;;; Recursive N base to decimal translation
   ;;; This function takes a list and a base as input used to translate the given
   ;;; number to its decimal counterpart.
   (define baseN->base10
-    (lambda (number base) (let ([len (length number)])
-                            (cond
-                              [(empty? number) 0]
-                              [else
-                                ;; Using the multiplications method.
-                                (+
-                                  (* (first number) (expt base (sub1 len)))
-                                  (baseN->base10
-                                    (take-right number (sub1 len)) base))]))))
+    (lambda (number base)
+      (let ([len (length number)])
+        (cond
+          [(empty? number) 0]
+          [else
+            ;; Using the multiplications method.
+            (+
+              (* (first number) (expt base (sub1 len)))
+              (baseN->base10
+                (take-right number (sub1 len)) base))]))))
 
   ;;; This function is a wrapper procedure that enables the user to call just
   ;;; one function to convert a number.
   (define convert
-    (lambda (number sbase ebase) (cond
-                                   [(zero? number) 0]
-                                   ;; If the start base isn't 10 than the number
-                                   ;; should be converted to the base 10 before
-                                   ;; converting it to ebase
-                                   [(not (eq? sbase 10))
-                                    (let* ([s10 (number->string number)]
-                                           [nbase (demolish-number s10)]
-                                           [n10 (baseN->base10 nbase sbase)])
-                                      (build-number
-                                        (base10->baseN n10 ebase)))]
-                                   ;; If the given number is in base 10 than
-                                   ;; it's all a lot simpler.
-                                   [else
-                                     (build-number
-                                       (base10->baseN number ebase))]))))
+    (lambda (number sbase ebase)
+      (cond
+        [(zero? number) 0]
+        ;; If the start base isn't 10 than the number
+        ;; should be converted to the base 10 before
+        ;; converting it to ebase
+        [(not (eq? sbase 10))
+         (let* ([s10 (number->string number)]
+                [nbase (demolish-number s10)]
+                [n10 (baseN->base10 nbase sbase)])
+           (build-number
+             (base10->baseN n10 ebase)))]
+        ;; If the given number is in base 10 than
+        ;; it's all a lot simpler.
+        [else
+          (build-number
+            (base10->baseN number ebase))]))))
