@@ -22,5 +22,6 @@
 (display-signed-notation  rand-b)
 (display-conversion  50 10  4)
 (display-conversion 307 10 16)
+(display-conversion 389 10 20)
 
 (complement-two rand-b)

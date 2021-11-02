@@ -57,7 +57,7 @@
                  ;; constraints. This piece of code converts an
                  ;; integer into a character.
                  [(between? x  0  9) (integer->char (+ x 48))]
-                 [(between? x 10 15) (integer->char (+ x 55))]
+                 [(between? x 10 31) (integer->char (+ x 55))]
                  [else x]))
              nlist))))
 
@@ -69,6 +69,6 @@
                ;; Basically each element is converted to its integer
                ;; counter-part.
                [(char-between? x #\0 #\9) (- (char->integer x) 48)]
-               [(char-between? x #\A #\F) (- (char->integer x) 55)]
+               [(char-between? x #\A #\Z) (- (char->integer x) 55)]
                [else x]))
            (string->list str)))))
