@@ -23,15 +23,19 @@
       (map (lambda (x)
              (opposite x)) binary)))
 
+  ;;; Recursive 2's complement
   (define complement-two
     (lambda (binary)
       (let* ([len (length binary)]
              [idx (list-ref binary (sub1 len))])
         (cond
           [(zero? idx)
+           ;; This piece of code is just a way to iterate each element without
+           ;; doing anything but recursive.
            (append
              (complement-two (take binary (sub1 len)))
              (list idx))]
+          ;; This is where the bits get flipped, after the first 1.
           [else
             (append
               (complement-one (take binary (sub1 len)))
