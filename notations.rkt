@@ -6,8 +6,8 @@
   (provide signed-notation complement-one complement-two)
 
 
-  ;;; This function will just swap the first bit of the given binary string as the
-  ;;; signed notation says.
+  ;;; This function will just swap the first bit of the given binary string as
+  ;;; the signed notation says.
   (define signed-notation
     (lambda (binary)
       (unless (empty? binary)

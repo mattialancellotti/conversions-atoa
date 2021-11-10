@@ -6,10 +6,6 @@
   (define between?
     (lambda (z x y) (if (and (>= z x) (<= z y)) #t #f)))
 
-  ;;; Temporal solution
-  (define char-between?
-    (lambda (z x y) (if (and (char>=? z x) (char<=? z y)) #t #f)))
-
   ;;; 0 <-> 1
   (define opposite
     (lambda (digit)
@@ -31,7 +27,8 @@
         (cond
           [(> add len)
            (append
-             (build-list (- add len) (lambda (x) 0)) bits)]
+             (build-list (- add len)
+                         (lambda (x) 0)) bits)]
           [else
             ;; If the `add` parameter was not provided move on with the
             ;; automatic calculation.
@@ -68,7 +65,7 @@
              (cond
                ;; Basically each element is converted to its integer
                ;; counter-part.
-               [(char-between? x #\0 #\9) (- (char->integer x) 48)]
-               [(char-between? x #\A #\Z) (- (char->integer x) 55)]
+               [(char-numeric?    x) (- (char->integer x) 48)]
+               [(char-alphabetic? x) (- (char->integer x) 55)]
                [else x]))
            (string->list str)))))
