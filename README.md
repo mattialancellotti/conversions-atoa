@@ -9,4 +9,4 @@ include not only base 2 and 10 but all the bases between 2 and 16.
 
 Then I decided to improve it using lists.
 
-Then I decided to expand it 'till base 36.
+Then I decided to expand it to base 36.
