@@ -17,7 +17,7 @@ $(BINARY): $(srcdir)/main.rkt
 .PHONY: all install uninstall clean
 all: install clean
 
-install:
+install: $(BINARY)
 	@echo "Installing your binary to $(bindir)."
 	$(INSTALL_PROGRAM) $(BINARY) $(bindir)
 	@echo "Done."
