@@ -19,7 +19,7 @@
 
 (define display-conversion
   (lambda (number baseStart baseEnd)
-    (when (number? number)
+    (when (and (positive? baseStart) (positive? baseEnd))
       (printf ":: conversion of number ~a from base ~a to ~a: ~s~%"
               number baseStart baseEnd
               (convert number baseStart baseEnd)))))
